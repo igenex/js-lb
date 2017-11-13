@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    console.log("Простое сообщение");
+    console.log("Еще вариант", "простого сообщение", 123, 55, 765);
+    console.log("Простое сообщение с форматированием: %s , %s", "Первое слово", function(){return "Второе слово"}());
+
+    console.info('Информационное сообщение');
+    console.warn('Предупреждение о чем-либо');
+    console.error('Какая-то ошибка');
+
+    console.group('Группа1');
+
+    console.group("Группа2");
+    console.log('Сообщение 1');
+    console.log('Сообщение 2');
+    console.log('Сообщение 3');
+    console.groupEnd();
+
+    console.group("Группа3");
+    console.log('Сообщение 1');
+    console.log('Сообщение 2');
+    console.log('Сообщение 3');
+    console.groupEnd();
+
+    console.groupEnd();
+
+    console.time('Таймер 1');
+    for(let i = 1; i <= 200000; i++) {
+        let a = i/i;
+    }
+    console.timeEnd('Таймер 1');
+
+
+    function f1() {
+        console.log('1');
+        function f2() {
+            console.log('2');
+            console.trace();
+        }
+
+        f2();
+
+        console.log('3');
+    }
+
+    console.profile("Профайл 1");
+
+     f1();
+
+    console.profileEnd();
+
+</script>
+</body>
+</html>
