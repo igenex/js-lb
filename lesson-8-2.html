@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="sendAjax">Загрузить</button>
+
+<script>
+    sendAjax.addEventListener('click', () => {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', 'test.txt');
+        xhr.addEventListener('load', () => {
+            console.log("Ответ получен!");
+        });
+        xhr.send();
+    });
+</script>
+</body>
+</html>

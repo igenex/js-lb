@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--<button id="myButton">Нажми меня</button>-->
+<script>
+    /*myButton.addEventListener('click', () => {
+        setTimeout(
+            () => {
+                console.log('таймер');
+            },
+            5000
+        );
+        console.time('Деление')
+        for(let i = 1; i < 6000000; i++) {
+            let a = i / i;
+        }
+        console.timeEnd('Деление');
+    });*/
+
+    let url1 = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTn_iBF6heJwhclZm1IMp9xW76v-xlozTt9Kz54WOxZVLM5PDzK',
+        url2 = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ4afw2Ru2ZMjHm-pg2l8xEIVQX1s9xRzf1I-T_BgXUnPjqG0q',
+        url3 = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQso8345sJc28zYiogpAbiNGnehvXechdG7zxzNX9cojB7B-rxwyQ';
+
+    /*let image = new Image();
+
+    document.body.appendChild(image);
+
+    image.src = url1;
+    image.addEventListener('load', () => {
+        console.log("Картинка 1 загружена");
+    })*/
+
+    /*let p = new Promise((resolve, reject) => {
+        console.log('Мы внутри промиса!');
+
+        let i = new Image();
+        document.body.appendChild(i);
+
+        i.src = url1;
+        i.addEventListener('load', () => {
+            resolve();
+        });
+        i.addEventListener('error', () => {
+            reject();
+        })
+    }); */
+
+    function loadImage(url) {
+        return new Promise((resolve, reject) => {
+
+            let i = new Image();
+            document.body.appendChild(i);
+
+            i.src = url;
+            i.addEventListener('load', () => {
+                resolve();
+            });
+            i.addEventListener('error', () => {
+                reject();
+            })
+        });
+    }
+
+    let p = loadImage(url1);
+
+    p.then(
+        () => {
+            console.log("Успешно загружена картинка 1");
+            return loadImage(url2);
+        },
+        () => {
+            console.log("с ошибкой");
+        }
+    ).then(
+        () => {
+            console.log("Успешно загружена картинка 2");
+            return loadImage(url3);
+        },
+        () => {
+            console.log("с ошибкой");
+        }
+    ).then(
+        () => {
+            console.log("Успешно загружена картинка 3");
+        },
+        () => {
+            console.log("с ошибкой");
+        }
+    );
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #container {
+            display: block;
+            position: absolute;
+            width:100px;
+            height: 100px;
+            background: purple;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<script>
+    let activeElement;
+    let offsetX = 0;
+    let offsetY = 0;
+    let container = document.querySelector('#container');
+
+    let mDown = (e) => {
+        console.log("Нажали кнопку мыши");
+        activeElement = e.target;
+        console.log(activeElement);
+        console.log(e);
+        offsetX = e.offsetX;
+        offsetY = e.offsetY;
+    };
+    let mUp = (e) => {
+        console.log('Отпустили кнопку мыши');
+        activeElement = null;
+    };
+    let mMove = (e) => {
+//        console.log('Двигаем курсор', e);
+        if(activeElement) {
+            activeElement.style.top = (e.clientY - offsetY) + "px";
+            activeElement.style.left = (e.clientX - offsetX) + "px";
+            console.log(e.clientY + "px");
+        }
+    };
+
+    container.addEventListener('mousedown', mDown);
+    container.addEventListener('mouseup', mUp);
+    document.addEventListener('mousemove', mMove);
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul id="list">
+    <li my-attr="1">1</li>
+    <li my-attr="2">2</li>
+    <li my-attr="3">3</li>
+    <li my-attr="4">4</li>
+    <li my-attr="5">5</li>
+    <li my-attr="6">6</li>
+    <li my-attr="7">7</li>
+    <li my-attr="8">8</li>
+    <li my-attr="9">9</li>
+    <li my-attr="10">10</li>
+</ul>
+
+<script>
+    //Делегирование
+    list.addEventListener('click', e => console.log(`Кликнули на ${e.target.attributes['my-attr'].value}`))  ;
+    /*for(let item of list.children) {
+        console.log(item);
+        item.addEventListener('click', e => console.log(`Кликнули на ${e.target.attributes['my-attr'].value}`));
+    } */
+</script>
+</body>
+</html>
