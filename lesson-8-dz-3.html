@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<label for="myInput">Фильтр: <input type="text" id="myInput" name="myInput"></label>
+<script>
+    function getAjax (url) {
+        return new Promise((resolve, reject) => {
+            let xhr = new XMLHttpRequest();
+            xhr.open('GET', url);
+            xhr.addEventListener('load', () => {
+                resolve(xhr.responseText);
+            });
+            xhr.addEventListener('error', () => {
+                reject();
+            });
+            xhr.send();
+        });
+    }
+
+    let myInputText = document.querySelector('#myInput');
+    let itemArr = [];
+    let ul = document.createElement('ul');
+
+    document.body.appendChild(ul);
+
+    myInputText.addEventListener("keyup", buildList, false);
+
+    getAjax('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json').then((responseText) => {
+       let list = JSON.parse(responseText);
+       list.sort((a,b) => {
+          if(a.name > b.name) return 1;
+          if(a.name < b.name) return -1;
+          return 0;
+       });
+
+       let li;
+
+
+        for(let item of list) {
+            itemArr.push(item.name);
+            li = document.createElement('li');
+            li.innerHTML = item.name;
+            ul.appendChild(li);
+        }
+
+
+
+    });
+
+    function buildList () {
+        let arr = filterCountries();
+        let li;
+        ul.innerHTML = '';
+        for (let obj of arr) {
+            li = document.createElement('li');
+            li.innerHTML = obj;
+            ul.appendChild(li);
+        }
+    }
+
+
+    function filterCountries() {
+        console.log("press");
+        let val = myInputText.value;
+        let newArr = itemArr.filter(item => {
+//            console.log(`Val: ${val} в значении ${item} - ${item.toLowerCase().indexOf(val)}`);
+            return item.toLowerCase().indexOf(val) > -1;
+       });
+        console.log(newArr);
+        return newArr;
+    }
+
+
+
+
+
+</script>
+</body>
+</html>

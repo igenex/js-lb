@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function timer(sec) {
+        return new Promise((resolve, reject) => {
+            return window.setTimeout(() => {
+                resolve(sec);
+            }, sec);
+        })
+    }
+
+    timer(6000).then((sec) => {
+        console.log(`Я вывелась через ${sec} секунды`);
+    });
+
+    window.setTimeout(() => {
+        console.log('Я жду 3 секи');},3000 );
+
+
+</script>
+</body>
+</html>
