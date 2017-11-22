@@ -5,17 +5,59 @@
     <title>Title</title>
 </head>
 <body>
-<button id="sendAjax">Загрузить</button>
-
+<button id="myButton">Загрузить</button>
+<div id="container"></div>
 <script>
-    sendAjax.addEventListener('click', () => {
+   /* myButton.addEventListener('click', () => {
         let xhr = new XMLHttpRequest();
         xhr.open('GET', 'test.txt');
         xhr.addEventListener('load', () => {
-            console.log("Ответ получен!");
+            console.log("Ответ получен! ", xhr.response);
+            container.innerHTML = xhr.response;
         });
         xhr.send();
-    });
+    });*/
+
+   let o = {
+       name: 'Eugene',
+       lastName: 'Sikirzhitksy'
+   };
+
+   /**
+    *
+    * @param url
+    * @returns {Promise}
+    */
+   function sendAjax(url) {
+       return new Promise((resolve, reject) => {
+           let xhr = new XMLHttpRequest();
+           xhr.open('GET', url);
+           xhr.responseType = 'json'; //Говорим какой тип данных мы принимаем
+           xhr.addEventListener('load', () => {
+//               resolve(xhr.responseText);
+               resolve(xhr.response);
+           });
+           xhr.addEventListener('error', () => {
+               reject();
+           });
+           xhr.send();
+       });
+   }
+
+   myButton.addEventListener('click', () => {
+       sendAjax('test.json').then((response) => {
+           console.log('Файл загружен');
+//           let result = JSON.parse(responseText);
+           container.innerText = typeof response;
+               console.log(response);
+               return response;
+       },
+           () => {
+           console.log('Произошла ошибка при загрузке файла!');
+           }).then(response => {
+               console.log('получен ответ от сервера ', response);
+       });
+   })
 </script>
 </body>
 </html>
