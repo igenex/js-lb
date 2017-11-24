@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container {
+            display: block;
+            position: absolute;
+            width:100px;
+            height: 100px;
+            background: purple;
+        }
+    </style>
+</head>
+<body>
+<div class="buttonWrapper">
+    <button id="saveButton">Сохранить</button>
+    <button id="randomButton">Перемешать цвет</button>
+</div>
+<div id="container"></div>
+<div class="container"></div>
+<div class="container"></div>
+<div class="container"></div>
+<div class="container"></div>
+<div class="container"></div>
+<div class="container"></div>
+<div class="container"></div>
+<script>
+    let activeElement;
+    let offsetX = 0;
+    let offsetY = 0;
+    let container = document.querySelectorAll('.container');
+    let saveButton = document.querySelector('#saveButton');
+    let randColorButton = document.querySelector("#randomButton");
+
+    randColorButton.addEventListener('click', randomBlocksColor);
+    saveButton.addEventListener('click', saveData);
+
+    function randomBlocksColor () {
+        for (let cube of container) {
+            cube.style.backgroundColor = randomColor();
+        }
+    }
+
+
+    loadStatemnt("statemnt");
+
+    let mDown = (e) => {
+        activeElement = e.target;
+        offsetX = e.offsetX;
+        offsetY = e.offsetY;
+    };
+    let mUp = (e) => {
+        activeElement = null;
+    };
+    let mMove = (e) => {
+        if(activeElement) {
+            activeElement.style.top = (e.clientY - offsetY) + "px";
+            activeElement.style.left = (e.clientX - offsetX) + "px";
+        }
+    };
+
+    function randomColor() {
+        let color = ["purple", "green", "red", "Yellow", "orange", "grey", "black", "whitesmoke", "blue"];
+        let num = Math.floor(Math.random() * color.length);
+        return color[num];
+    }
+
+    function saveData () {
+        let dataArr = [];
+        for (let cube of container) {
+            dataArr.push({
+                color: cube.style.backgroundColor,
+                position : getCoords(cube)
+            });
+        }
+        saveToCookie(dataArr);
+        console.log(dataArr);
+    }
+
+    function saveToCookie (arr) {
+        let data = JSON.stringify(arr);
+        document.cookie = "statemnt="+data;
+    }
+
+    function getCoords(elem) { // кроме IE8-
+        var box = elem.getBoundingClientRect();
+
+        return {
+            top: box.top + pageYOffset,
+            left: box.left + pageXOffset
+        };
+
+    }
+
+    function loadStatemnt (cookies) {
+        let cookie = getCookies(cookies);
+        let cookieArr = JSON.parse(cookie);
+
+        for (let i = 0; i < cookieArr.length; i++) {
+            let obj = cookieArr[i];
+            for (let item in obj) {
+                switch(item) {
+                    case "color" :
+                        console.log(obj[item]);
+                        container[i].style.backgroundColor = obj[item];
+                        break;
+                    case "position" :
+                        container[i].style.top = obj[item].top + "px";
+                        container[i].style.left = obj[item].left + "px";
+                }
+            }
+        }
+    }
+
+    /**
+     * Вспомогательная функция для получения куки
+     * @param name
+     * @returns {*}
+     */
+    function getCookies(name) {
+        let matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+
+    document.body.addEventListener('mousedown', mDown);
+    document.body.addEventListener('mouseup', mUp);
+    document.addEventListener('mousemove', mMove);
+</script>
+</body>
+</html>

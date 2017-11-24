@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <style>
+        form {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="container mb-5 mt-5">
+
+    <form action="">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="cname">Имя куки: </label><input class="form-control" type="text" name="cname" required>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="cvalue">Значение куки: </label><input class="form-control" type="text" name="cvalue"
+                                                              required>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="cexpire">Срок годности: </label><input class="form-control" type="text" name="cexpire"
+                                                               required>
+                </div>
+            </div>
+            <div class="col-md-3"><label for="send">Отправить:</label><br/>
+                <button id="sending" type="submit" class="btn btn-primary" name="send">Отправить</button>
+            </div>
+
+        </div>
+    </form>
+
+</div>
+<div class="container">
+<div class="row">
+    <div class="col-md">
+        <table id="cookieTable" class="table">
+        </table>
+    </div>
+</div>
+</div>
+</div>
+
+<div id="myModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+           Заполните все поля!
+        </div>
+    </div>
+</div>
+
+<script>
+
+    let cookieArr = [];
+    let table = document.querySelector("#cookieTable");
+    let submit = document.querySelector("#sending");
+
+    submit.addEventListener('click', getFromForm);
+
+    table.addEventListener('click', (e) => {
+        deleteCookieCommon(e);
+    });
+
+
+    /**
+     * Получение куки в массиве
+     */
+    function getCookie() {
+        return new Promise((resolve, reject) => {
+            cookieArr = document.cookie.split('; ');
+            if (!cookieArr) {
+                reject();
+            }
+
+            let cookiePairs = cookieArr.map(el => {
+                return el.split("=");
+            });
+
+            resolve(cookiePairs);
+        });
+    }
+
+    /**
+     * Построение строк таблицы
+     * @param arr
+     */
+    function buildRows(arr) {
+        let row, col;
+
+        table.innerHTML = '<tr><th>Название</th><th>Значение</th><th>Удалить</th></tr>';
+
+        for (let i = 0; i < arr.length; i++) {
+            row = document.createElement("tr");
+
+            for (let j = 0; j <= arr[i].length; j++) {
+                if (j !== arr[i].length) {
+                    row.setAttribute('data-cookie', arr[i][0]);
+                    col = document.createElement("td");
+                    col.innerHTML = arr[i][j];
+                    row.appendChild(col);
+                } else {
+                    col = document.createElement("td");
+                    col.innerHTML = '<img class="delete" src="images/delete-icon.png" alt="Delete" width="15px" height="15px"/>';
+                    row.appendChild(col);
+                }
+            }
+
+            table.appendChild(row);
+        }
+
+
+    }
+
+    /**
+     * Удаление куки и строки с кукой
+     * @param e
+     */
+    function deleteCookieCommon(e) {
+        let target = e.target.closest('img');
+        if (!target) return;
+        if (!table.contains(target)) return;
+        if (target.classList.contains('delete')) {
+            let parent = target.parentNode.parentNode;
+            let cookie = parent.getAttribute('data-cookie');
+            let conf = confirm(`Удалить cookie с именем ${cookie}?`);
+            if (conf) {
+                deleteCookie(cookie);
+                parent.remove();
+            }
+        }
+    }
+
+
+    function getFromForm () {
+        let inputs = document.querySelectorAll(".form-control");
+        let inpArr = [];
+        for (let obj of inputs) {
+            if(obj.value !== '') {
+                inpArr.push(obj.value);
+            }
+        }
+        if(inpArr.length < 3) {
+            $('#myModal').modal();
+            return;
+        } else {
+            let options = {
+                expires : +inpArr[2]
+            };
+            setCookie(inpArr[0], inpArr[1], options);
+        }
+
+        getCookie().then(cookiePairs => {
+            buildRows(cookiePairs);
+
+            for (let obj of inputs) {
+                obj.value = "";
+            }
+        });
+
+    }
+
+
+    /**
+     * Вспомогательная функция для получения куки
+     * @param name
+     * @returns {*}
+     */
+    function getCookies(name) {
+        let matches = document.cookie.match(new RegExp(
+            "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+        ));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+
+    /**
+     * Вспомогательная функция для установки куки
+     * @param name
+     * @param value
+     * @param options
+     */
+    function setCookie(name, value, options) {
+        options = options || {};
+
+        let expires = options.expires;
+        if (typeof expires == "number" && expires) {
+            let d = new Date();
+            d.setTime(d.valueOf() + expires * 24 * 60 * 60 * 1000);
+            expires = options.expires = d;
+        }
+        if (expires && expires.toUTCString) {
+            options.expires = expires.toUTCString();
+        }
+
+        value = encodeURIComponent(value);
+
+        let updatedCookie = name + "=" + value;
+
+        for (let propName in options) {
+            updatedCookie += "; " + propName;
+            let propValue = options[propName];
+            if (propValue !== true) {
+                updatedCookie += "=" + propValue;
+            }
+        }
+
+        document.cookie = updatedCookie;
+    }
+
+    /**
+     * Вспомогательная функция для удаления куки
+     * @param name
+     */
+    function deleteCookie(name) {
+        setCookie(name, "", {
+            expires: -1
+        })
+    }
+
+
+
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+        integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+</body>
+</html>
