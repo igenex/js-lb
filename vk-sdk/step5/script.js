@@ -67,12 +67,12 @@ new Promise(resolve => {
     () => {
         "use strict";
         function onProgress (e) {
-            let progressBar = playingItem.querySelector('[data-role=progressbar]');
+            let progressbar = playingItem.querySelector('[data-role=progressbar]');
             let duration = e.target.duration;
             let currentTime = e.target.currentTime;
             let progress = parseInt(100 / duration * currentTime);
 
-            progress.style.width = progress + "%";
+            progressbar.style.width = progress + "%";
         }
 
         function onPlay() {

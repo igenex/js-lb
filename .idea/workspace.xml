@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="92c78a45-4e85-4d0f-b540-83047a1a6cc1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vk-sdk/step2/vk-step2.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vk-sdk/step2/vk-step2.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vk-sdk/step3/script.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vk-sdk/step3/vk-step3.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vk-sdk/step5/config.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vk-sdk/step5/sass/screen.scss" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vk-sdk/step5/script.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vk-sdk/step5/stylesheets/screen.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vk-sdk/step5/vk-step5.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vk-sdk/vk-st-1.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vk-sdk/vk-st-1.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vk-sdk/step5/script.js" afterPath="$PROJECT_DIR$/vk-sdk/step5/script.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -40,11 +30,9 @@
       <file leaf-file-name="script.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vk-sdk/step5/script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="106" column="53" lean-forward="false" selection-start-line="106" selection-start-column="53" selection-end-line="106" selection-end-column="53" />
-              <folding>
-                <element signature="e#2016#2328#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="187">
+              <caret line="74" column="34" lean-forward="false" selection-start-line="74" selection-start-column="34" selection-end-line="74" selection-end-column="34" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -164,22 +152,6 @@
               <item name="lb-js" type="b2602c69:ProjectViewProjectNode" />
               <item name="lb-js" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="lb-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lb-js" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lb-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lb-js" type="462c0819:PsiDirectoryNode" />
-              <item name="vk-sdk" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lb-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lb-js" type="462c0819:PsiDirectoryNode" />
-              <item name="vk-sdk" type="462c0819:PsiDirectoryNode" />
-              <item name="step5" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -274,7 +246,7 @@
       <workItem from="1511426734639" duration="13181000" />
       <workItem from="1511528423691" duration="19304000" />
       <workItem from="1511604755715" duration="8292000" />
-      <workItem from="1511699210173" duration="6823000" />
+      <workItem from="1511699210173" duration="7207000" />
     </task>
     <task id="LOCAL-00001" summary="Дз за 10 урок">
       <created>1511539963223</created>
@@ -287,7 +259,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="140421000" />
+    <option name="totallyTimeSpent" value="140805000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -785,11 +757,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vk-sdk/step5/script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="106" column="53" lean-forward="false" selection-start-line="106" selection-start-column="53" selection-end-line="106" selection-end-column="53" />
-          <folding>
-            <element signature="e#2016#2328#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="187">
+          <caret line="74" column="34" lean-forward="false" selection-start-line="74" selection-start-column="34" selection-end-line="74" selection-end-column="34" />
+          <folding />
         </state>
       </provider>
     </entry>
