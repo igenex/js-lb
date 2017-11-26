@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://vk.com/js/api/xd_connection.js?2"  type="text/javascript"></script>
+</head>
+<body>
+<script type="text/javascript">
+    let host = "https://oauth.vk.com/authorize";
+    let path = "?client_id=6272226&display=page&redirect_uri=http://localhost/callback"+
+               "&scope=friends&response_type=token&v=5.69&state=123456";
+    VK.init(function() {
+        // API initialization succeeded
+        // Your code here
+
+        window.href = host + path;
+        console.log("Подключились успешно");
+    }, function() {
+        // API initialization failed
+        // Can reload page here
+        console.log("Не удалось подключиться!");
+    }, '5.69');
+</script>
+</body>
+</html>
